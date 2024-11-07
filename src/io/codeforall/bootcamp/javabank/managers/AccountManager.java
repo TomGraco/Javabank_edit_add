@@ -1,26 +1,25 @@
 package io.codeforall.bootcamp.javabank.managers;
 
-import io.codeforall.bootcamp.javabank.domain.account.AccountType;
-import io.codeforall.bootcamp.javabank.domain.account.CheckingAccount;
-import io.codeforall.bootcamp.javabank.domain.account.SavingsAccount;
 import io.codeforall.bootcamp.javabank.domain.account.Account;
+import io.codeforall.bootcamp.javabank.domain.account.AccountType;
+import io.codeforall.bootcamp.javabank.factories.AccountFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Responsible for account management
+ * Responsible for managing accounts
  */
 public class AccountManager {
 
-    private static int numberAccounts = 0;
+    private AccountFactory accountFactory = new AccountFactory();
     private Map<Integer, Account> accountMap;
 
     /**
      * Creates a new {@code AccountManager}
      */
     public AccountManager() {
-        this.accountMap = new HashMap<>();
+        accountMap = new HashMap<>();
     }
 
     /**
@@ -28,19 +27,10 @@ public class AccountManager {
      *
      * @param accountType the account type
      * @return the new account
+     * @see AccountFactory#createAccount(AccountType)
      */
     public Account openAccount(AccountType accountType) {
-
-        Account newAccount;
-        numberAccounts++;
-
-        if (accountType == AccountType.CHECKING) {
-            newAccount = new CheckingAccount(numberAccounts);
-
-        } else {
-            newAccount = new SavingsAccount(numberAccounts);
-        }
-
+        Account newAccount = accountFactory.createAccount(accountType);
         accountMap.put(newAccount.getId(), newAccount);
         return newAccount;
     }
