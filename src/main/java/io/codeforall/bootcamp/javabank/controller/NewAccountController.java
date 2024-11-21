@@ -1,7 +1,6 @@
 package io.codeforall.bootcamp.javabank.controller;
 
 import io.codeforall.bootcamp.javabank.factories.AccountFactory;
-import io.codeforall.bootcamp.javabank.model.Customer;
 import io.codeforall.bootcamp.javabank.model.account.Account;
 import io.codeforall.bootcamp.javabank.model.account.AccountType;
 import io.codeforall.bootcamp.javabank.services.AccountService;
@@ -13,6 +12,7 @@ import io.codeforall.bootcamp.javabank.view.NewAccountView;
 public class NewAccountController extends AbstractController {
 
     private Integer newAccountId;
+    private AccountFactory accountFactory;
     private AccountService accountService;
 
     /**
@@ -22,6 +22,15 @@ public class NewAccountController extends AbstractController {
      */
     public Integer getNewAccountId() {
         return newAccountId;
+    }
+
+    /**
+     * Sets the account factory
+     *
+     * @param accountFactory the account factory to set
+     */
+    public void setAccountFactory(AccountFactory accountFactory) {
+        this.accountFactory = accountFactory;
     }
 
     /**
@@ -41,19 +50,14 @@ public class NewAccountController extends AbstractController {
      */
     @Override
     public void init() {
-
         newAccountId = createAccount();
         super.init();
     }
 
     private int createAccount() {
 
-        Account newAccount = AccountFactory.createAccount(AccountType.CHECKING);
-        Customer accessingCustomer = authService.getAccessingCustomer();
-
-        accessingCustomer.addAccount(newAccount);
-        accountService.add(newAccount);
-
-        return newAccount.getId();
+        Account newAccount = accountFactory.createAccount(AccountType.CHECKING);
+        authService.getAccessingCustomer().addAccount(newAccount);
+        return accountService.add(newAccount);
     }
 }

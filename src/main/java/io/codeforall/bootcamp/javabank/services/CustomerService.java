@@ -1,6 +1,7 @@
 package io.codeforall.bootcamp.javabank.services;
 
 import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.model.Recipient;
 
 import java.util.List;
 import java.util.Set;
@@ -11,19 +12,20 @@ import java.util.Set;
 public interface CustomerService {
 
     /**
-     * Gets the customer
+     * Gets the customer with the given id
      *
      * @param id the customer id
-     * @return the customer with the given id
+     * @return the customer
      */
     Customer get(Integer id);
 
     /**
-     * Gets the list of customers
+     * Gets the balance of the customer
      *
-     * @return the customer list
+     * @param id the customer id
+     * @return the balance of the customer with the given id
      */
-    List<Customer> list();
+    double getBalance(Integer id);
 
     /**
      * Gets the set of customer account ids
@@ -34,17 +36,10 @@ public interface CustomerService {
     Set<Integer> listCustomerAccountIds(Integer id);
 
     /**
-     * Gets the balance of the customer
+     * Gets the list of customer recipients
      *
      * @param id the customer id
-     * @return the balance of the customer with the given id
+     * @return the list of recipients of the customer
      */
-    double getBalance(int id);
-
-    /**
-     * Adds a customer to the service
-     *
-     * @param customer the customer to add
-     */
-    void add(Customer customer);
+    List<Recipient> listRecipients(Integer id);
 }

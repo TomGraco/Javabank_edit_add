@@ -1,9 +1,14 @@
-package io.codeforall.bootcamp.javabank.persistence.daos;
+package io.codeforall.bootcamp.javabank.persistence.dao;
+
 
 import io.codeforall.bootcamp.javabank.model.Model;
 
 import java.util.List;
 
+/**
+ * Base interface for data access objects, provides an abstraction over the persistence layer to access data
+ * @param <T> the model type
+ */
 public interface Dao<T extends Model> {
 
     /**

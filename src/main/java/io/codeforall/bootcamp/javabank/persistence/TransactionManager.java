@@ -1,6 +1,10 @@
 package io.codeforall.bootcamp.javabank.persistence;
 
+/**
+ * Common interface for database transactions, provides methods to manage transactions
+ */
 public interface TransactionManager {
+
     /**
      * Begin reading
      */

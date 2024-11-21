@@ -1,8 +1,8 @@
 package io.codeforall.bootcamp.javabank.view;
 
-import io.codeforall.bootcamp.javabank.controller.transaction.AccountTransactionController;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
 import org.academiadecodigo.bootcamp.scanners.precisiondouble.DoubleInputScanner;
+import io.codeforall.bootcamp.javabank.controller.transaction.AccountTransactionController;
 
 /**
  * A view used to show occurring transactions

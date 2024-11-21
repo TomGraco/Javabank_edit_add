@@ -1,106 +1,118 @@
 package io.codeforall.bootcamp.javabank.services;
 
-import io.codeforall.bootcamp.javabank.persistence.TransactionException;
-import io.codeforall.bootcamp.javabank.persistence.TransactionManager;
-import io.codeforall.bootcamp.javabank.persistence.daos.CustomerDao;
+import io.codeforall.bootcamp.javabank.model.AbstractModel;
 import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.model.Recipient;
 import io.codeforall.bootcamp.javabank.model.account.Account;
+import io.codeforall.bootcamp.javabank.persistence.TransactionManager;
+import io.codeforall.bootcamp.javabank.persistence.dao.CustomerDao;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+/**
+ * An {@link CustomerService} implementation
+ */
 public class CustomerServiceImpl implements CustomerService {
 
-    private TransactionManager tm;
     private CustomerDao customerDao;
+    private TransactionManager tx;
 
-
-    public void setCustomerDAO(CustomerDao customerDao) {
+    /**
+     * Sets the customer data access object
+     *
+     * @param customerDao the account DAO to set
+     */
+    public void setCustomerDao(CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
 
-    public void setTm(TransactionManager tm) {
-        this.tm = tm;
+    /**
+     * Sets the transaction manager
+     *
+     * @param tx the transaction manager to set
+     */
+    public void setTransactionManager(TransactionManager tx) {
+        this.tx = tx;
     }
 
-
+    /**
+     * @see CustomerService#get(Integer)
+     */
     @Override
     public Customer get(Integer id) {
 
         try {
-            tm.beginRead();
-            return customerDao.findById(id);
-        } finally {
-            tm.commit();
-        }
 
+            tx.beginRead();
+            return customerDao.findById(id);
+
+        } finally {
+            tx.commit();
+        }
     }
 
+    /**
+     * @see CustomerService#getBalance(Integer)
+     */
     @Override
-    public List<Customer> list() {
+    public double getBalance(Integer id) {
 
         try {
-            tm.beginRead();
-            return customerDao.findAll();
+
+            tx.beginRead();
+
+            Customer customer = Optional.ofNullable(customerDao.findById(id))
+                    .orElseThrow(() -> new IllegalArgumentException("Customer does not exist"));
+
+            return customer.getAccounts().stream()
+                    .mapToDouble(Account::getBalance)
+                    .sum();
+
         } finally {
-            tm.commit();
+            tx.commit();
         }
     }
 
+    /**
+     * @see CustomerService#listCustomerAccountIds(Integer)
+     */
     @Override
     public Set<Integer> listCustomerAccountIds(Integer id) {
 
-        Customer customer = get(id);
+        try {
 
-        if (customer == null) {
-            throw new IllegalArgumentException("Customer does not exist");
+            tx.beginRead();
+
+            Customer customer = Optional.ofNullable(customerDao.findById(id))
+                    .orElseThrow(() -> new IllegalArgumentException("Customer does not exist"));
+
+            return customer.getAccounts().stream()
+                    .map(AbstractModel::getId)
+                    .collect(Collectors.toSet());
+
+        } finally {
+            tx.commit();
         }
-
-        List<Account> accounts = customer.getAccounts();
-
-        if (accounts.size() == 0) {
-            return Collections.emptySet();
-        }
-
-        Set<Integer> customerAccountIds = new HashSet<>();
-
-        for (Account account : accounts) {
-            customerAccountIds.add(account.getId());
-        }
-
-        return customerAccountIds;
     }
 
+    /**
+     * @see CustomerService#listRecipients(Integer)
+     */
     @Override
-    public double getBalance(int id) {
-
-        Customer customer = get(id);
-
-        if (customer == null) {
-            throw new IllegalArgumentException("Customer does not exist");
-        }
-
-        List<Account> accounts = customer.getAccounts();
-
-        double balance = 0;
-        for (Account account : accounts) {
-            balance += account.getBalance();
-        }
-
-        return balance;
-    }
-
-    @Override
-    public void add(Customer customer) {
+    public List<Recipient> listRecipients(Integer id) {
 
         try {
-            tm.beginWrite();
-            customerDao.saveOrUpdate(customer);
-            tm.commit();
-        } catch (TransactionException e){
-            tm.rollback();
+
+            tx.beginRead();
+
+            Customer customer = Optional.ofNullable(customerDao.findById(id))
+                    .orElseThrow(() -> new IllegalArgumentException("Customer does not exist"));
+
+            return new ArrayList<>(customer.getRecipients());
+
+        } finally {
+            tx.commit();
         }
-
     }
-
-
 }

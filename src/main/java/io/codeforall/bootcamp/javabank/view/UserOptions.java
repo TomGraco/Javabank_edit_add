@@ -5,8 +5,10 @@ import io.codeforall.bootcamp.javabank.controller.NewAccountController;
 import io.codeforall.bootcamp.javabank.controller.transaction.DepositController;
 import io.codeforall.bootcamp.javabank.controller.transaction.WithdrawalController;
 
+import java.util.stream.Stream;
+
 /**
- * The possible operations types
+ * The possible operation types
  */
 public enum UserOptions {
 
@@ -31,9 +33,14 @@ public enum UserOptions {
     OPEN_ACCOUNT(4, Messages.MENU_OPEN_ACCOUNT),
 
     /**
+     * @see RecipientsView
+     */
+    LIST_RECIPIENTS(5, Messages.MENU_RECIPIENTS),
+
+    /**
      * User option to quit the application
      */
-    QUIT(5, Messages.MENU_QUIT);
+    QUIT(6, Messages.MENU_QUIT);
 
     private int option;
     private String message;
@@ -68,12 +75,8 @@ public enum UserOptions {
      */
     public static String[] getMessages() {
 
-        String[] messages = new String[values().length];
-
-        for (UserOptions option : values()) {
-            messages[option.getOption() - 1] = option.getMessage();
-        }
-
-        return messages;
+        return Stream.of(values())
+                .map(UserOptions::getMessage)
+                .toArray(String[]::new);
     }
 }

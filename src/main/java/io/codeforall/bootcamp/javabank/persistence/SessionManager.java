@@ -1,6 +1,11 @@
 package io.codeforall.bootcamp.javabank.persistence;
 
+/**
+ * Common interface for session managers, provides methods to manage database sessions
+ * @param <T> the session type
+ */
 public interface SessionManager<T> {
+
     /**
      * Starts the session
      */

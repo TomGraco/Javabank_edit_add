@@ -2,12 +2,12 @@ package io.codeforall.bootcamp.javabank.model;
 
 import io.codeforall.bootcamp.javabank.model.account.Account;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The customer model entity
- */
+@Entity
+@Table(name = "customer")
 public class Customer extends AbstractModel {
 
     private String firstName;
@@ -15,22 +15,39 @@ public class Customer extends AbstractModel {
     private String email;
     private String phone;
 
+    @OneToMany(
+            // propagate changes on customer entity to account entities
+            cascade = {CascadeType.ALL},
+
+            // make sure to remove accounts if unlinked from customer
+            orphanRemoval = true,
+
+            // use customer foreign key on account table to establish
+            // the many-to-one relationship instead of a join table
+            mappedBy = "customer",
+
+            // fetch accounts from database together with user
+            fetch = FetchType.EAGER
+    )
     private List<Account> accounts = new ArrayList<>();
 
-    /**
-     * Gets the firstName of the customer
-     *
-     * @return the customer firstName
-     */
+    @OneToMany(
+            // propagate changes on customer entity to account entities
+            cascade = {CascadeType.ALL},
+
+            // make sure to remove recipients if unlinked from customer
+            orphanRemoval = true,
+
+            // use recipient foreign key on recipient table to establish
+            // the many-to-one relationship instead of a join table
+            mappedBy = "customer"
+    )
+    private List<Recipient> recipients = new ArrayList<>();
+
     public String getFirstName() {
         return firstName;
     }
 
-    /**
-     * Sets the firstName of the customer
-     *
-     * @param firstName the firstName to set
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -59,32 +76,32 @@ public class Customer extends AbstractModel {
         this.phone = phone;
     }
 
-    /**
-     * Gets the customer accounts
-     *
-     * @return the accounts
-     */
     public List<Account> getAccounts() {
         return accounts;
     }
 
-    /**
-     * Adds a new account to the customer
-     *
-     * @param account the account to add
-     */
     public void addAccount(Account account) {
-        account.setCustomerId(getId());
         accounts.add(account);
+        account.setCustomer(this);
     }
 
-    /**
-     * Removes an account from the customer
-     *
-     * @param account the account to remove
-     */
     public void removeAccount(Account account) {
         accounts.remove(account);
+        account.setCustomer(null);
+    }
+
+    public List<Recipient> getRecipients() {
+        return recipients;
+    }
+
+    public void addRecipient(Recipient recipient) {
+        recipients.add(recipient);
+        recipient.setCustomer(this);
+    }
+
+    public void removeRecipient(Recipient recipient) {
+        recipients.remove(recipient);
+        recipient.setCustomer(null);
     }
 
     @Override
@@ -95,7 +112,8 @@ public class Customer extends AbstractModel {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", accounts=" + accounts +
-                '}';
+                ", recipients=" + recipients +
+                "} " + super.toString();
     }
 }
 

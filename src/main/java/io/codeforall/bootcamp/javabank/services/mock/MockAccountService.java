@@ -1,73 +1,64 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
 import io.codeforall.bootcamp.javabank.model.account.Account;
+import io.codeforall.bootcamp.javabank.model.account.AccountType;
 import io.codeforall.bootcamp.javabank.services.AccountService;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * An {@link AccountService} implementation
+ * A mock {@link AccountService} implementation
  */
-public class MockAccountService implements AccountService {
-
-    private Map<Integer, Account> accountMap = new HashMap<>();
+public class MockAccountService extends AbstractMockService<Account> implements AccountService {
 
     /**
-     * Gets the next account id
-     *
-     * @return the next id
+     * @see AccountService#get(Integer)
      */
-    private Integer getNextId() {
-        return accountMap.isEmpty() ? 1 : Collections.max(accountMap.keySet()) + 1;
-    }
-
     @Override
     public Account get(Integer id) {
-        return accountMap.get(id);
+        return modelMap.get(id);
     }
 
     /**
      * @see AccountService#add(Account)
      */
-    public void add(Account account) {
+    @Override
+    public Integer add(Account account) {
 
         if (account.getId() == null) {
             account.setId(getNextId());
         }
 
-        accountMap.put(account.getId(), account);
+        modelMap.put(account.getId(), account);
+
+        return account.getId();
     }
 
     /**
-     * @see AccountService#deposit(int, double)
+     * @see AccountService#deposit(Integer, double)
      */
-    public void deposit(int id, double amount) {
-        accountMap.get(id).credit(amount);
+    public void deposit(Integer id, double amount) {
+        modelMap.get(id).credit(amount);
     }
 
     /**
-     * @see AccountService#withdraw(int, double)
+     * @see AccountService#withdraw(Integer, double)
      */
-    public void withdraw(int id, double amount) {
+    public void withdraw(Integer id, double amount) {
 
-        Account account = accountMap.get(id);
-
-        if (!account.canWithdraw()) {
+        Account account = modelMap.get(id);
+        if (account.getAccountType() == AccountType.SAVINGS) {
             return;
         }
 
-        accountMap.get(id).debit(amount);
+        modelMap.get(id).debit(amount);
     }
 
     /**
-     * @see AccountService#transfer(int, int, double)
+     * @see AccountService#transfer(Integer, Integer, double)
      */
-    public void transfer(int srcId, int dstId, double amount) {
+    public void transfer(Integer srcId, Integer dstId, double amount) {
 
-        Account srcAccount = accountMap.get(srcId);
-        Account dstAccount = accountMap.get(dstId);
+        Account srcAccount = modelMap.get(srcId);
+        Account dstAccount = modelMap.get(dstId);
 
         // make sure transaction can be performed
         if (srcAccount.canDebit(amount) && dstAccount.canCredit(amount)) {

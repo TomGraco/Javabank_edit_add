@@ -1,42 +1,67 @@
 package io.codeforall.bootcamp.javabank.model;
 
-/**
- * A generic model entity to be used as a base for concrete types of models
- */
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@MappedSuperclass
 public abstract class AbstractModel implements Model {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Version
     private Integer version;
 
-    /**
-     * @see Model#getId()
-     */
+    @CreationTimestamp
+    private Date creationTime;
+
+    @UpdateTimestamp
+    private Date updateTime;
+
     @Override
     public Integer getId() {
         return id;
     }
 
-    /**
-     * @see Model#setId(Integer)
-     */
     @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    /**
-     * @see Model#getVersion()
-     */
-    @Override
     public Integer getVersion() {
         return version;
     }
 
-    /**
-     * @see Model#setVersion(Integer)
-     */
-    @Override
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Model{" +
+                "id=" + id +
+                ", creationTime=" + creationTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

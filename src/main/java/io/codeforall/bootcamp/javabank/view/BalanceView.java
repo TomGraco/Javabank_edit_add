@@ -1,8 +1,8 @@
 package io.codeforall.bootcamp.javabank.view;
 
 import io.codeforall.bootcamp.javabank.controller.BalanceController;
-import io.codeforall.bootcamp.javabank.model.account.Account;
 import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.model.account.Account;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -37,7 +37,7 @@ public class BalanceView implements View {
     private void showBalance() {
 
         Customer customer = balanceController.getCustomer();
-        System.out.println("\n" + customer.getFirstName() + Messages.VIEW_BALANCE_MESSAGE + "\n");
+        System.out.println("\n" + customer.getFirstName() + " " + customer.getLastName() + Messages.VIEW_BALANCE_MESSAGE + "\n");
 
         List<Account> accounts = customer.getAccounts();
         for (Account account : accounts) {
