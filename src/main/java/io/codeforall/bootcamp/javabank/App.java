@@ -1,53 +1,34 @@
 package io.codeforall.bootcamp.javabank;
 
 import io.codeforall.bootcamp.javabank.controller.Controller;
-import io.codeforall.bootcamp.javabank.services.AccountServiceImpl;
-import io.codeforall.bootcamp.javabank.services.AuthServiceImpl;
-import io.codeforall.bootcamp.javabank.services.CustomerServiceImpl;
-import io.codeforall.bootcamp.javabank.persistence.TransactionManager;
-import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaAccountDao;
-import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaCustomerDao;
-import io.codeforall.bootcamp.javabank.persistence.jpa.JpaSessionManager;
-import io.codeforall.bootcamp.javabank.persistence.jpa.JpaTransactionManager;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import io.codeforall.bootcamp.javabank.controller.LoginController;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class App {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory(Config.PERSISTENCE_UNIT);
-
-        JpaSessionManager sm = new JpaSessionManager(emf);
-        TransactionManager tx = new JpaTransactionManager(sm);
-
         App app = new App();
-        app.bootStrap(tx, sm);
-
-        emf.close();
-
+        app.bootStrap();
     }
 
-    private void bootStrap(TransactionManager tx, JpaSessionManager sm) {
+    private void bootStrap() {
 
-        AccountServiceImpl accountService = new AccountServiceImpl();
-        accountService.setAccountDao(new JpaAccountDao(sm));
-        accountService.setTransactionManager(tx);
+        String profile = getProfile();
+        System.out.println("#### Active Profiles " + profile + " ####");
 
-        CustomerServiceImpl customerService = new CustomerServiceImpl();
-        customerService.setCustomerDao(new JpaCustomerDao(sm));
-        customerService.setTransactionManager(tx);
+        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+        ctx.getEnvironment().setActiveProfiles(getProfile());
+        ctx.load(Config.SPRING_CONFIG);
+        ctx.refresh();
 
-        Bootstrap bootstrap = new Bootstrap();
-
-        bootstrap.setAuthService(new AuthServiceImpl());
-        bootstrap.setAccountService(accountService);
-        bootstrap.setCustomerService(customerService);
-
-        Controller controller = bootstrap.wireObjects();
-
-        // start application
+        Controller controller = ctx.getBean(LoginController.class);
         controller.init();
+    }
+
+    private String getProfile() {
+
+        String target = System.getenv(Config.SPRING_PROFILE_ENV_VAR);
+        return target == null ? Config.SPRING_DEFAULT_PROFILE : target;
     }
 }

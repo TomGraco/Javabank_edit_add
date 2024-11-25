@@ -1,11 +1,9 @@
 package io.codeforall.bootcamp.javabank.services;
 
-
-import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 
 /**
- * Common interface for authentication services, provides method
- * for customer authentication
+ * Common interface for authentication services, provides method for customer authentication
  */
 public interface AuthService {
 

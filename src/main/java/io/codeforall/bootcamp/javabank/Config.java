@@ -5,5 +5,7 @@ package io.codeforall.bootcamp.javabank;
  */
 public class Config {
 
-    public static final String PERSISTENCE_UNIT = "test";
+    public static final String SPRING_CONFIG = "/spring/spring-config.xml";
+    public static final String SPRING_DEFAULT_PROFILE = "test";
+    public static final String SPRING_PROFILE_ENV_VAR = "target";
 }

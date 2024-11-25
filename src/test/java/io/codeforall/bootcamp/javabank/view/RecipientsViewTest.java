@@ -1,7 +1,7 @@
 package io.codeforall.bootcamp.javabank.view;
 
 import io.codeforall.bootcamp.javabank.controller.RecipientsController;
-import io.codeforall.bootcamp.javabank.model.Recipient;
+import io.codeforall.bootcamp.javabank.persistence.model.Recipient;
 import org.junit.Before;
 import org.junit.Test;
 

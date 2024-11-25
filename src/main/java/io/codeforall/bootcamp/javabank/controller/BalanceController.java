@@ -1,8 +1,8 @@
 package io.codeforall.bootcamp.javabank.controller;
 
-import io.codeforall.bootcamp.javabank.view.BalanceView;
-import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 import io.codeforall.bootcamp.javabank.services.CustomerService;
+import io.codeforall.bootcamp.javabank.view.BalanceView;
 
 /**
  * The {@link BalanceView} controller

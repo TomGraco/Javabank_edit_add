@@ -1,9 +1,9 @@
 package io.codeforall.bootcamp.javabank.controller.transaction;
 
-import io.codeforall.bootcamp.javabank.model.Customer;
 import io.codeforall.bootcamp.javabank.services.AccountService;
 import io.codeforall.bootcamp.javabank.services.AuthService;
 import io.codeforall.bootcamp.javabank.services.CustomerService;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 import io.codeforall.bootcamp.javabank.view.View;
 import org.junit.Before;
 import org.junit.Test;

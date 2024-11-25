@@ -1,8 +1,8 @@
 package io.codeforall.bootcamp.javabank.view;
 
-import io.codeforall.bootcamp.javabank.controller.MainController;
 import org.academiadecodigo.bootcamp.InputScanner;
 import org.academiadecodigo.bootcamp.Prompt;
+import io.codeforall.bootcamp.javabank.controller.MainController;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,6 @@
 package io.codeforall.bootcamp.javabank.persistence.dao;
 
-
-import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 
 import java.util.List;
 

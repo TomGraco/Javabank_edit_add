@@ -1,6 +1,6 @@
 package io.codeforall.bootcamp.javabank.controller;
 
-import io.codeforall.bootcamp.javabank.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 import io.codeforall.bootcamp.javabank.view.MainView;
 import io.codeforall.bootcamp.javabank.view.Messages;
 import io.codeforall.bootcamp.javabank.view.UserOptions;

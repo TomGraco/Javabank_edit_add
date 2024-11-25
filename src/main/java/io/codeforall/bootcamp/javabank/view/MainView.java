@@ -1,8 +1,7 @@
 package io.codeforall.bootcamp.javabank.view;
 
-import io.codeforall.bootcamp.javabank.controller.MainController;
 import org.academiadecodigo.bootcamp.scanners.menu.MenuInputScanner;
-
+import io.codeforall.bootcamp.javabank.controller.MainController;
 /**
  * A view used to display the main menu
  *

@@ -1,7 +1,6 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
-import io.codeforall.bootcamp.javabank.model.account.Account;
-import io.codeforall.bootcamp.javabank.model.account.AccountType;
+import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 import io.codeforall.bootcamp.javabank.services.AccountService;
 
 /**
@@ -45,7 +44,8 @@ public class MockAccountService extends AbstractMockService<Account> implements 
     public void withdraw(Integer id, double amount) {
 
         Account account = modelMap.get(id);
-        if (account.getAccountType() == AccountType.SAVINGS) {
+
+        if (!account.canWithdraw()) {
             return;
         }
 

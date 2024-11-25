@@ -1,7 +1,6 @@
 package io.codeforall.bootcamp.javabank.persistence.dao;
 
-
-import io.codeforall.bootcamp.javabank.model.Model;
+import io.codeforall.bootcamp.javabank.persistence.model.Model;
 
 import java.util.List;
 

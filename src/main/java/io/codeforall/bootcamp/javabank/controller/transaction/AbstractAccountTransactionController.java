@@ -1,8 +1,8 @@
 package io.codeforall.bootcamp.javabank.controller.transaction;
 
-import io.codeforall.bootcamp.javabank.controller.AbstractController;
 import io.codeforall.bootcamp.javabank.services.AccountService;
 import io.codeforall.bootcamp.javabank.services.CustomerService;
+import io.codeforall.bootcamp.javabank.controller.AbstractController;
 
 import java.util.Set;
 
@@ -40,4 +40,5 @@ public abstract class AbstractAccountTransactionController extends AbstractContr
     public Set<Integer> getAccountIds() {
         return customerService.listCustomerAccountIds(authService.getAccessingCustomer().getId());
     }
+
 }

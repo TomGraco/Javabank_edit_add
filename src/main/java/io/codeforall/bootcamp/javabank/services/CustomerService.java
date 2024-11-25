@@ -1,7 +1,7 @@
 package io.codeforall.bootcamp.javabank.services;
 
-import io.codeforall.bootcamp.javabank.model.Customer;
-import io.codeforall.bootcamp.javabank.model.Recipient;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.model.Recipient;
 
 import java.util.List;
 import java.util.Set;

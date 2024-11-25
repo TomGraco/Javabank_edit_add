@@ -1,7 +1,6 @@
 package io.codeforall.bootcamp.javabank.services;
 
-
-import io.codeforall.bootcamp.javabank.model.account.Account;
+import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 
 /**
  * Common interface for account services, provides methods to manage accounts and perform account transactions

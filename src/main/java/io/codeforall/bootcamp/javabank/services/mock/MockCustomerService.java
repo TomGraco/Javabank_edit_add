@@ -1,9 +1,9 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
-import io.codeforall.bootcamp.javabank.model.AbstractModel;
-import io.codeforall.bootcamp.javabank.model.Customer;
-import io.codeforall.bootcamp.javabank.model.Recipient;
-import io.codeforall.bootcamp.javabank.model.account.Account;
+import io.codeforall.bootcamp.javabank.persistence.model.AbstractModel;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.model.Recipient;
+import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 import io.codeforall.bootcamp.javabank.services.CustomerService;
 
 import java.util.List;
@@ -27,9 +27,9 @@ public class MockCustomerService extends AbstractMockService<Customer> implement
      * @see CustomerService#getBalance(Integer)
      */
     @Override
-    public double getBalance(Integer id) {
+    public double getBalance(Integer customerId) {
 
-        List<Account> accounts = modelMap.get(id).getAccounts();
+        List<Account> accounts = modelMap.get(customerId).getAccounts();
 
         return accounts.stream()
                 .mapToDouble(Account::getBalance)

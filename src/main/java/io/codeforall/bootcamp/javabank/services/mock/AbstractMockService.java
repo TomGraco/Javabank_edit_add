@@ -1,7 +1,6 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
-
-import io.codeforall.bootcamp.javabank.model.AbstractModel;
+import io.codeforall.bootcamp.javabank.persistence.model.AbstractModel;
 
 import java.util.Collections;
 import java.util.HashMap;
