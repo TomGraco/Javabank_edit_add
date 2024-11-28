@@ -1,7 +1,7 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
-import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 import io.codeforall.bootcamp.javabank.services.AccountService;
+import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 
 /**
  * A mock {@link AccountService} implementation
@@ -14,21 +14,6 @@ public class MockAccountService extends AbstractMockService<Account> implements 
     @Override
     public Account get(Integer id) {
         return modelMap.get(id);
-    }
-
-    /**
-     * @see AccountService#add(Account)
-     */
-    @Override
-    public Integer add(Account account) {
-
-        if (account.getId() == null) {
-            account.setId(getNextId());
-        }
-
-        modelMap.put(account.getId(), account);
-
-        return account.getId();
     }
 
     /**

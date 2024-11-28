@@ -1,11 +1,12 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
+import io.codeforall.bootcamp.javabank.services.CustomerService;
 import io.codeforall.bootcamp.javabank.persistence.model.AbstractModel;
 import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 import io.codeforall.bootcamp.javabank.persistence.model.Recipient;
 import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
-import io.codeforall.bootcamp.javabank.services.CustomerService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,6 +35,14 @@ public class MockCustomerService extends AbstractMockService<Customer> implement
         return accounts.stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
+    }
+
+    /**
+     * @see CustomerService#list()
+     */
+    @Override
+    public List<Customer> list() {
+        return new ArrayList<>(modelMap.values());
     }
 
     /**
