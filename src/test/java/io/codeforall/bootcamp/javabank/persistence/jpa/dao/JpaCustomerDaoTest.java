@@ -1,7 +1,7 @@
 package io.codeforall.bootcamp.javabank.persistence.jpa.dao;
 
-import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaCustomerDao;
 import io.codeforall.bootcamp.javabank.persistence.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaCustomerDao;
 import org.junit.Before;
 import org.junit.Test;
 

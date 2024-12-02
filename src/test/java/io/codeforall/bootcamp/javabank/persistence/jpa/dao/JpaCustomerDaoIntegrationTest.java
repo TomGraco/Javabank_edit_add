@@ -1,11 +1,11 @@
 package io.codeforall.bootcamp.javabank.persistence.jpa.dao;
 
-import io.codeforall.bootcamp.javabank.persistence.model.Customer;
+import io.codeforall.bootcamp.javabank.persistence.jpa.JpaIntegrationTestHelper;
 import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 import io.codeforall.bootcamp.javabank.persistence.model.account.CheckingAccount;
 import io.codeforall.bootcamp.javabank.persistence.model.account.SavingsAccount;
+import io.codeforall.bootcamp.javabank.persistence.model.Customer;
 import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaCustomerDao;
-import io.codeforall.bootcamp.javabank.persistence.jpa.JpaIntegrationTestHelper;
 import org.junit.Before;
 import org.junit.Test;
 

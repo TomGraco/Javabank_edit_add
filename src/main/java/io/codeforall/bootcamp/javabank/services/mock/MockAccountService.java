@@ -1,7 +1,7 @@
 package io.codeforall.bootcamp.javabank.services.mock;
 
-import io.codeforall.bootcamp.javabank.services.AccountService;
 import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
+import io.codeforall.bootcamp.javabank.services.AccountService;
 
 /**
  * A mock {@link AccountService} implementation

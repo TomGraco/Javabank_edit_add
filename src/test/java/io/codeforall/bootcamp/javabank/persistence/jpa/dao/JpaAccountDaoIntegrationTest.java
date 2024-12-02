@@ -1,10 +1,10 @@
 package io.codeforall.bootcamp.javabank.persistence.jpa.dao;
 
-import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaAccountDao;
 import io.codeforall.bootcamp.javabank.persistence.jpa.JpaIntegrationTestHelper;
 import io.codeforall.bootcamp.javabank.persistence.model.account.Account;
 import io.codeforall.bootcamp.javabank.persistence.model.account.AccountType;
 import io.codeforall.bootcamp.javabank.persistence.model.account.CheckingAccount;
+import io.codeforall.bootcamp.javabank.persistence.dao.jpa.JpaAccountDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +64,7 @@ public class JpaAccountDaoIntegrationTest extends JpaIntegrationTestHelper {
 
         // verify
         assertNotNull("Accounts are null", accounts);
-        assertEquals("Number of accounts is wrong", 7, accounts.size());
+        assertEquals("Number of accounts is wrong", 8, accounts.size());
 
     }
 
@@ -126,7 +126,6 @@ public class JpaAccountDaoIntegrationTest extends JpaIntegrationTestHelper {
         assertEquals("Account balance is wrong", 200, account.getBalance(), DOUBLE_DELTA);
 
     }
-
 
     @Test
     public void testDeleteAccountOwned() {
