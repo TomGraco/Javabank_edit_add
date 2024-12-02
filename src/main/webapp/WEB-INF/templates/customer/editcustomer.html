@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <thymeleaf th:replace="header :: header"></thymeleaf>
+  <style>
+    .error-message {
+      color: red;
+      font-weight: bold;
+      background-color: #ffe6e6; /* Light red background */
+      border: 1px solid #ffcccc;
+      border-radius: 5px;
+      padding: 5px 10px;
+      display: inline-block;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+<form th:object="${customer}" th:action="@{'/customer/' + ${id} + '/edit'}" method="post">
+  <p>
+  <label for="firstname">First Name:</label>
+  <input required id="firstname" type="text" th:field="*{firstName}"/>
+    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message">
+First Name field error messages
+</span>
+  </p>
+  <p>
+    <label for="lastname">Last Name:</label>
+    <input required id="lastname" type="text" th:field="*{lastName}"/>
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message">
+Last Name field error messages
+</span>
+  </p>
+  <p>
+    <label for="email">Email:</label>
+    <input required id="email" type="text" th:field="*{email}"/>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message">
+Email field error messages
+</span>
+  </p>
+  <p>
+    <label for="phone">Phone:</label>
+    <input required id="phone" type="text" th:field="*{phone}"/>
+    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message">
+Phone field error messages
+</span>
+  </p>
+  <a>
+    <button type="submit" value="Submit">Submit</button>
+  </a>
+</form>
+</body>
+</html>
